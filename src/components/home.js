@@ -39,18 +39,19 @@ export default class Home extends React.Component {
         return(
           <div id='products'>
             { products.map(product =>                
-              <div key={product.id} className="product">
-                <Grid container spacing={3}>
-                  <Grid item xs={3}>
-                    {product.name}
-                  </Grid>
-                  <Grid item xs={3}>
-                    {product.category}
-                  </Grid>
-                  <Grid item xs={6}>
-                    {product.price}
-                  </Grid>
-                </Grid>
+              <div key={product.id} className="product_container">
+                  <div className='product_attr'>
+                    <b>{product.name}</b>
+                  </div>
+                  <div className='product_attr' >
+                    <i>{product.category}</i>
+                  </div >
+                  <div className='product_attr' >
+                    <img src="./ava.jpg" width='100px' alt=''/>
+                  </div >
+                  <div className='product_attr'>
+                    <h3>price: {product.price} $</h3>
+                  </div >
 
              </div>         
             )}

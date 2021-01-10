@@ -13,34 +13,31 @@
  .profile_cont{
    margin: 30px;
  }
- #main .create_cont{
-   padding: 1%;
-   width: 50%;
-   margin: auto;
-   margin-top: 20px;
- }
+
  #main .header a {
    color: white;
    text-decoration: none;
  }
- #main #posts{
-   text-align: justify;
-   padding: 30px 100px;
-   margin: auto;
- }
+
  #main .nav_cont{
   padding: 0px 100px;
  }
-#main .post_create{
-  width: 600px;
-}
 
-.post_new_cont{
-  margin: 30px 70px;
-}
-#main .create_post_cont{
-  padding: 30px;
-}
+
 .new_h2{
   margin-top: -5px;
+}
+.product_container{
+  float: left;
+  margin: 10px;
+  width: 300px;
+  height:300px;
+  text-align: center;
+  border: 2px solid grey;
+}
+#products{
+  margin-left: 100px;
+}
+.product_attr{
+  margin-top: 20px;
 }

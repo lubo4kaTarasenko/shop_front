@@ -41,3 +41,13 @@
 .product_attr{
   margin-top: 20px;
 }
+
+#search_input {
+  color: aliceblue;
+}
+#search_i{
+  color: aliceblue;
+}
+#main .header_item{
+  margin-top: 10px;
+}

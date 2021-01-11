@@ -1,7 +1,10 @@
 import React from 'react'
 import ProductsApi from '../services/productsApi';
+import CategoriesApi from '../services/categoriesApi';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
+import {Assignment } from '@material-ui/icons';
 
 export default class Home extends React.Component {    
     constructor(props) {
@@ -9,11 +12,13 @@ export default class Home extends React.Component {
       this.state = {
         error: null,
         isLoaded: true,
-        products: []
+        products: [],
+        categories: []
       }
     }
     componentDidMount() {
         this.loadListOfProducts()
+        this.loadListOfCategories()
       }
 
     loadListOfProducts(){
@@ -28,18 +33,38 @@ export default class Home extends React.Component {
       )
     }
 
-    renderProductsList(){
-      const {error,  isLoaded, products } = this.state;
+    loadListOfCategories(){
+      new CategoriesApi().getList().then(
+        (result) => {
+          console.log(result)
+          this.setState({
+            isLoaded: true,
+            categories: result.categories
+          });
+        },
+      )
+    }
 
-      if (error) {
-        return <div>Error: {error.message}</div>
-      } else if (!isLoaded) {
-        return <div>Loading...</div>
-      } else {
+    renderCategoriesList(){
+      const  categories  = this.state.categories;
+      return(
+        <div id='categories'>
+          { categories.map(category =>                
+            <div key={category.id} className="category_container">               
+              <IconButton color='primary'><Assignment className='category_icon' fontSize='large'/>{category.name}</IconButton>
+            </div>
+          )}
+        </div>
+        )
+    }
+
+
+    renderProductsList(){
+      const  products = this.state.products;
         return(
           <div id='products'>
             { products.map(product =>                
-              <div key={product.id} className="product_container">
+              <Paper key={product.id} className="product_container">
                   <div className='product_attr'>
                     <b>{product.name}</b>
                   </div>
@@ -53,20 +78,23 @@ export default class Home extends React.Component {
                     <h3>price: {product.price} $</h3>
                   </div >
 
-             </div>         
+             </Paper>         
             )}
           </div>
-          )}
+          )
     }
 
   render() {
     if(this.state.products.length !== 0){
       return (
-        <div>        
-          <div>
+        <Grid container >        
+            <Grid item xs={4} sm={2} className='categories_grid'>
+             {this.renderCategoriesList()}
+            </Grid>
+            <Grid item xs={8} sm={10}>
               {this.renderProductsList()}
-          </div>
-        </div>  
+            </Grid>
+        </Grid>  
     )}else{
       return(
         <div>Wait</div>

@@ -1,18 +1,18 @@
 import React from 'react'
 import ProductsApi from '../services/productsApi';
 import CategoriesApi from '../services/categoriesApi';
-import Grid from '@material-ui/core/Grid';
+import {Grid} from '@material-ui/core';
 import CategoriesList from './categoriesList';
 import ProductsList from './productsList';
+import { connect } from "react-redux";
+import { updateProducts } from "../redux/actions";
 
-
-export default class Home extends React.Component {    
+class Home extends React.Component {    
     constructor(props) {
       super(props);
       this.state = {
         error: null,
         isLoaded: true,
-        products: [],
         categories: []
       }
     }
@@ -25,9 +25,9 @@ export default class Home extends React.Component {
       new ProductsApi().getList().then(
         (result) => {
           console.log(result)
+          this.dispatchUpdateProducts(result.products)
           this.setState({
-            isLoaded: true,
-            products: result.products
+            isLoaded: true
           });
         },
       )
@@ -46,14 +46,14 @@ export default class Home extends React.Component {
     }
 
   render() {
-    if(this.state.products.length !== 0){
+    if(this.props.products.length !== 0){
       return (
         <Grid container >        
             <Grid item xs={4} sm={2} className='categories_grid'>
               <CategoriesList categories={this.state.categories}/>
             </Grid>
             <Grid item xs={8} sm={10}>
-              <ProductsList products={this.state.products}/>
+              <ProductsList/>
             </Grid>
         </Grid>  
     )}else{
@@ -63,4 +63,18 @@ export default class Home extends React.Component {
     }
   }
 
+  dispatchUpdateProducts(products){
+    this.props.updateProducts(products)
+  }
+
 }
+const mapStateToProps = (state) => {
+  return {
+    products: state.products.products
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { updateProducts }
+)(Home);

@@ -1,4 +1,7 @@
 import Paper from '@material-ui/core/Paper';
+import { connect } from "react-redux";
+import { updateProducts } from "../redux/actions";
+
 function ProductList(props) {
   return (
     <div id='products'>
@@ -19,5 +22,16 @@ function ProductList(props) {
       </Paper>         
       )}
     </div>
-  )}
-export default ProductList;
+)}
+
+const mapStateToProps = (state) => {
+    return {
+      products: state.products.products
+    }
+}
+  
+  export default connect(
+    mapStateToProps,
+    { updateProducts }
+  )(ProductList);
+  

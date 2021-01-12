@@ -23,12 +23,10 @@
   margin-top: 20px;
 }
 
-#search_input {
+#main #search_input #search_in {
   color: aliceblue;
 }
-#search_i{
-  color: aliceblue;
-}
+
 #main .header_item{
   margin-top: 10px;
 }

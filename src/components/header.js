@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 //import cookie from 'react-cookies'
 import {Home, AccountBox,ShoppingCart, Search } from '@material-ui/icons';
+import SearchComp from './autocomplete';
 
 export default class Header extends React.Component {
  render(){
@@ -12,8 +13,8 @@ export default class Header extends React.Component {
     <AppBar position="static"> 
         <Toolbar className='nav_cont'> 
          <Grid container>
-            <Grid item xs={5} sm={5} className='header_item'> <h2>Let it be shop</h2></Grid> 
-            <Grid item xs={7} sm={3} className='header_item'>{this.searchForm()}</Grid> 
+            <Grid item xs={3} sm={5} className='header_item'> <h2>Let it be shop</h2></Grid> 
+            <Grid item xs={9} sm={3} className='header_item'><SearchComp/></Grid> 
             <Grid item xs={6} sm={2} className='header_item'><h4>login as blabla</h4></Grid>
             <Grid item xs={6} sm={2} className='header_item'>{ this.renderIfAuth(token) }</Grid> 
           </Grid>

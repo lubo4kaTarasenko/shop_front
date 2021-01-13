@@ -18,12 +18,12 @@ class Home extends React.Component {
       }
     }
     componentDidMount() {
-        this.loadListOfProducts()
+        this.loadListOfProducts(1)
         this.loadListOfCategories()
       }
 
-    loadListOfProducts(){
-      new ProductsApi().getList('', 1).then(
+    loadListOfProducts(page){
+      new ProductsApi().getList('', page).then(
         (result) => {
           console.log(result)
           this.dispatchUpdateProducts(result.products)
@@ -61,7 +61,8 @@ class Home extends React.Component {
           <Grid container > 
             <Grid item xs={1} sm={5}></Grid>
             <Grid item xs={11} sm={4} className='page_grid'>            
-              <Pagination count={50} variant="outlined" shape="rounded" id='paginator' /> 
+              <Pagination count={50} variant="outlined" shape="rounded" id='paginator'
+                onChange={(e, page)=>{this.loadListOfProducts(page)}} /> 
             </Grid>
           </Grid>
         </div>

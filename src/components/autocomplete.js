@@ -3,8 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from "react-redux";
 import { updateProducts,  updatePages } from "../redux/actions";
-
 import ProductsApi from '../services/productsApi';
+
 function SearchComp(props) {
   return (
     <Autocomplete
@@ -12,7 +12,7 @@ function SearchComp(props) {
       options={props.products}
       getOptionLabel={(option) => option.name}
       style={{ width: 250 }}
-      autoSelect={true}
+      clearOnBlur={false}
       onInputChange={(e, v) => {loadListOfProducts(v)}}
       renderInput={(params) => <TextField {...params}  label="Search" variant="filled" id='search_input' />}
     />
@@ -24,7 +24,7 @@ function SearchComp(props) {
   }
 
   function loadListOfProducts(v){
-    new ProductsApi().getList(v).then(
+    new ProductsApi().getList(v,1).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },
@@ -35,8 +35,7 @@ const mapStateToProps = (state) => {
   console.log('state =', state)
   return {
     pages: state.products.pages,
-    products: state.products.products
-    
+    products: state.products.products    
   }
 }
 

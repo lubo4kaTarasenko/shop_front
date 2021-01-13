@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from "react-redux";
-import { updateProducts } from "../redux/actions";
+import { updateProducts,  updatePages } from "../redux/actions";
 
 import ProductsApi from '../services/productsApi';
 function SearchComp(props) {
@@ -17,24 +17,30 @@ function SearchComp(props) {
       renderInput={(params) => <TextField {...params}  label="Search" variant="filled" id='search_input' />}
     />
   );
-  function dispatchUpdateProducts(products){
+
+  function dispatchUpdateState(products, pages){
     props.updateProducts(products)
+    props.updatePages(pages)
   }
+
   function loadListOfProducts(v){
     new ProductsApi().getList(v).then(
       (result) => {
-        dispatchUpdateProducts(result.products)
+        dispatchUpdateState(result.products, result.pages)
       },
     )
   }
 }
 const mapStateToProps = (state) => {
+  console.log('state =', state)
   return {
+    pages: state.products.pages,
     products: state.products.products
+    
   }
 }
 
 export default connect(
   mapStateToProps,
-  { updateProducts }
+  { updateProducts, updatePages }
 )(SearchComp);

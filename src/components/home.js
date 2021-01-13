@@ -5,7 +5,7 @@ import {Grid} from '@material-ui/core';
 import CategoriesList from './categoriesList';
 import ProductsList from './productsList';
 import { connect } from "react-redux";
-import { updateProducts } from "../redux/actions";
+import { updateProducts,  updatePages } from "../redux/actions";
 import Pagination from '@material-ui/lab/Pagination';
 
 class Home extends React.Component {    
@@ -18,15 +18,14 @@ class Home extends React.Component {
       }
     }
     componentDidMount() {
-        this.loadListOfProducts(1)
-        this.loadListOfCategories()
-      }
+      this.loadListOfProducts(1)
+      this.loadListOfCategories()
+    }
 
     loadListOfProducts(page){
       new ProductsApi().getList('', page).then(
         (result) => {
-          console.log(result)
-          this.dispatchUpdateProducts(result.products)
+          this.dispatchUpdateState(result.products, result.pages)
           this.setState({
             isLoaded: true
           });
@@ -37,7 +36,6 @@ class Home extends React.Component {
     loadListOfCategories(){
       new CategoriesApi().getList().then(
         (result) => {
-          console.log(result)
           this.setState({
             isLoaded: true,
             categories: result.categories
@@ -61,7 +59,7 @@ class Home extends React.Component {
           <Grid container > 
             <Grid item xs={1} sm={5}></Grid>
             <Grid item xs={11} sm={4} className='page_grid'>            
-              <Pagination count={50} variant="outlined" shape="rounded" id='paginator'
+              <Pagination count={this.props.pages} variant="outlined" shape="rounded" id='paginator'
                 onChange={(e, page)=>{this.loadListOfProducts(page)}} /> 
             </Grid>
           </Grid>
@@ -73,18 +71,22 @@ class Home extends React.Component {
     }
   }
 
-  dispatchUpdateProducts(products){
+  dispatchUpdateState(products, pages){
     this.props.updateProducts(products)
+    this.props.updatePages(pages)
   }
 
 }
 const mapStateToProps = (state) => {
+  console.log('state =', state)
   return {
+    pages: state.products.pages,
     products: state.products.products
+    
   }
 }
 
 export default connect(
   mapStateToProps,
-  { updateProducts }
+  { updateProducts, updatePages }
 )(Home);

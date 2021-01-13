@@ -1,11 +1,12 @@
-import { UPDATE_PRODUCTS } from "../actionTypes";
+import { UPDATE_PRODUCTS, UPDATE_PAGES } from "../actionTypes";
 
 const initialState = {
-  products: []
+  products: [],
+  pages: 1 
 };
 
 export default function(state = initialState, action) {
-  //console.log(state, action)
+  console.log(state, action)
   switch (action.type) {
     case UPDATE_PRODUCTS: {
       const products = action.payload.products;
@@ -13,7 +14,14 @@ export default function(state = initialState, action) {
         ...state,
         products: products
       };
-    }    
+    }
+    case UPDATE_PAGES: {
+      const pages = action.payload.pages;
+      return {
+        ...state,
+        pages: pages
+      };
+    }        
     default:
       return state;
   }

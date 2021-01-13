@@ -6,6 +6,7 @@ import CategoriesList from './categoriesList';
 import ProductsList from './productsList';
 import { connect } from "react-redux";
 import { updateProducts } from "../redux/actions";
+import Pagination from '@material-ui/lab/Pagination';
 
 class Home extends React.Component {    
     constructor(props) {
@@ -48,14 +49,22 @@ class Home extends React.Component {
   render() {
     if(this.props.products.length !== 0){
       return (
-        <Grid container >        
-            <Grid item xs={4} sm={2} className='categories_grid'>
-              <CategoriesList categories={this.state.categories}/>
+        <div>
+          <Grid container >        
+              <Grid item xs={4} sm={2} className='categories_grid'>
+                <CategoriesList categories={this.state.categories}/>
+              </Grid>
+              <Grid item xs={8} sm={10}>
+                <ProductsList/>
+              </Grid>         
+          </Grid>
+          <Grid container > 
+            <Grid item xs={1} sm={5}></Grid>
+            <Grid item xs={11} sm={4} className='page_grid'>            
+              <Pagination count={50} variant="outlined" shape="rounded" id='paginator' /> 
             </Grid>
-            <Grid item xs={8} sm={10}>
-              <ProductsList/>
-            </Grid>
-        </Grid>  
+          </Grid>
+        </div>
     )}else{
       return(
         <div>Wait</div>

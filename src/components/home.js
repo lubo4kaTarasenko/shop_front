@@ -7,6 +7,7 @@ import ProductsList from './productsList';
 import { connect } from "react-redux";
 import { updateProducts,  updatePages } from "../redux/actions";
 import Pagination from '@material-ui/lab/Pagination';
+import FilterProducts from './filter';
 
 class Home extends React.Component {    
     constructor(props) {
@@ -47,7 +48,8 @@ class Home extends React.Component {
   render() {
     if(this.props.products.length !== 0){
       return (
-        <div>
+        <div id='home_cont'>
+          <FilterProducts/>
           <Grid container >        
               <Grid item xs={4} sm={2} className='categories_grid'>
                 <CategoriesList categories={this.state.categories}/>

@@ -22,7 +22,7 @@ class Home extends React.Component {
       }
 
     loadListOfProducts(){
-      new ProductsApi().getList().then(
+      new ProductsApi().getList('', 1).then(
         (result) => {
           console.log(result)
           this.dispatchUpdateProducts(result.products)

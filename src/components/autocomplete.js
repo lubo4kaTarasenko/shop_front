@@ -4,7 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from "react-redux";
 import { updateProducts } from "../redux/actions";
 
-
+import ProductsApi from '../services/productsApi';
 function SearchComp(props) {
   return (
     <Autocomplete
@@ -13,14 +13,19 @@ function SearchComp(props) {
       getOptionLabel={(option) => option.name}
       style={{ width: 250 }}
       autoSelect={true}
-      onInputChange={(e, v) => {dispatchUpdateProducts(v)}}
+      onInputChange={(e, v) => {loadListOfProducts(v)}}
       renderInput={(params) => <TextField {...params}  label="Search" variant="filled" id='search_input' />}
     />
   );
-  function dispatchUpdateProducts(filter){
-    let products = props.products.filter(p => p.name.includes(filter));
-    console.log(products)
+  function dispatchUpdateProducts(products){
     props.updateProducts(products)
+  }
+  function loadListOfProducts(v){
+    new ProductsApi().getList(v).then(
+      (result) => {
+        dispatchUpdateProducts(result.products)
+      },
+    )
   }
 }
 const mapStateToProps = (state) => {

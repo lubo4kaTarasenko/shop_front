@@ -13,10 +13,10 @@ export default class Header extends React.Component {
     <AppBar position="static"> 
         <Toolbar className='nav_cont'> 
          <Grid container>
-            <Grid item xs={3} sm={5} className='header_item'> <h2>Let it be shop</h2></Grid> 
-            <Grid item xs={9} sm={3} className='header_item'><SearchComp/></Grid> 
-            <Grid item xs={6} sm={2} className='header_item'><h4>login as blabla</h4></Grid>
-            <Grid item xs={6} sm={2} className='header_item'>{ this.renderIfAuth(token) }</Grid> 
+            <Grid item xs={3} md={2} lg={5} className='header_item'> <h2>Let it be shop</h2></Grid> 
+            <Grid item xs={9} md={4} lg={3} className='header_item'><SearchComp/></Grid> 
+            <Grid item xs={6} md={3} lg={2} className='header_item'><h4>login as blabla</h4></Grid>
+            <Grid item xs={6} md={3} lg={2} className='header_item'>{ this.renderIfAuth(token) }</Grid> 
           </Grid>
         </Toolbar>
    </AppBar>

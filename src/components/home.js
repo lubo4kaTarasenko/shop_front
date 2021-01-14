@@ -50,16 +50,15 @@ class Home extends React.Component {
     }
 
   render() {
-    if(this.props.products.length !== 0){
       return (
         <div id='home_cont'>
           <FilterProducts/>
-          <Grid container >        
+           <Grid container >        
               <Grid item xs={4} sm={2} className='categories_grid'>
                 <CategoriesList categories={this.state.categories}/>
               </Grid>
               <Grid item xs={8} sm={10}>
-                <ProductsList/>
+                {this.props.products.length !== 0 ? <ProductsList/> : <div>No products found</div>}
               </Grid>         
           </Grid>
           <Grid container > 
@@ -76,12 +75,8 @@ class Home extends React.Component {
             </Grid>
           </Grid>
         </div>
-    )}else{
-      return(
-        <div>Wait</div>
-      )
-    }
-  }
+  )}
+
 
   dispatchUpdateState(products, pages){
     this.props.updateProducts(products)

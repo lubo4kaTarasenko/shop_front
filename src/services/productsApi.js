@@ -8,4 +8,9 @@ export default class ProductsApi{
     .then(res => res.json())
   }
 
+  getProduct(name){
+    return fetch(`http://localhost:3001/product?name=${name}`)
+    .then(res => res.json())
+  }
+
 }

@@ -1,8 +1,8 @@
+import { fullPath } from "./baseUrl";
+
 export default class ProductsApi{
-  
   getList(){
-    return fetch(`http://localhost:3001/categories`)
+    return fetch(fullPath(`/categories`))
     .then(res => res.json())
   }
-
 }

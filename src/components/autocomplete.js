@@ -32,7 +32,6 @@ function SearchComp(props) {
   }
 }
 const mapStateToProps = (state) => {
-  console.log('state =', state)
   return {
     pages: state.products.pages,
     products: state.products.products    

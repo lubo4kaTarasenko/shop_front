@@ -19,12 +19,12 @@ class Home extends React.Component {
       }
     }
     componentDidMount() {
-      this.loadListOfProducts('', 1, '', '', '')
+      this.loadListOfProducts('', 1, '', '', '', '')
       this.loadListOfCategories()
     }
 
-    loadListOfProducts(search, page, filter, price_from, price_to){
-      new ProductsApi().getList(search, page, filter, price_from, price_to).then(
+    loadListOfProducts(search, page, filter, price_from, price_to, category){
+      new ProductsApi().getList(search, page, filter, price_from, price_to, category).then(
         (result) => {
           this.dispatchUpdateState(result.products, result.pages)
           this.setState({
@@ -67,7 +67,8 @@ class Home extends React.Component {
                   page, 
                   document.getElementById('products_select').innerHTML,
                   document.getElementById('price_from').value,
-                  document.getElementById('price_to').value)}}
+                  document.getElementById('price_to').value,
+                  document.getElementsByClassName('checked_category')[0].id)}}
               /> 
             </Grid>
           </Grid>
@@ -86,7 +87,6 @@ class Home extends React.Component {
 
 }
 const mapStateToProps = (state) => {
-  console.log('state =', state)
   return {
     pages: state.products.pages,
     products: state.products.products

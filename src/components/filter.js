@@ -49,7 +49,8 @@ function FilterProducts(props) {
   function loadListOfProducts(filter){
     const price_from = document.getElementById('price_from').value
     const price_to = document.getElementById('price_to').value
-    new ProductsApi().getList('', 1, filter, price_from, price_to).then(
+    const category = document.getElementsByClassName('checked_category')[0].id
+    new ProductsApi().getList('', 1, filter, price_from, price_to, category).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },
@@ -57,7 +58,6 @@ function FilterProducts(props) {
   }
 }
 const mapStateToProps = (state) => {
-  console.log('state =', state)
   return {
     pages: state.products.pages,
     products: state.products.products    

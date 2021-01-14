@@ -3,6 +3,7 @@ import { Select, MenuItem, Grid, TextField, Button} from '@material-ui/core';
 import { connect } from "react-redux";
 import { updateProducts,  updatePages } from "../redux/actions";
 import ProductsApi from '../services/productsApi';
+import searchParams from '../helpers/searchParams';
 
 function FilterProducts(props) {
   return (
@@ -19,7 +20,7 @@ function FilterProducts(props) {
           variant={'outlined'}
           style={{width: 150}}
           onChange={(e) =>{loadListOfProducts(e.target.value)}}>
-          <MenuItem value={'default'}>No filter</MenuItem>
+          <MenuItem value={'default'}> default sort</MenuItem>
           <MenuItem value={'A...Z'}>A...Z</MenuItem>
           <MenuItem value={'Z...A'}>Z...A</MenuItem>
           <MenuItem value={'cheap...expensive'} className='blue'>cheap...expensive</MenuItem>
@@ -30,7 +31,7 @@ function FilterProducts(props) {
           <Button variant="contained" 
             color='primary'
             onClick={() => {filter_on_btn()}}
-            style={{height: 56, float: 'left'}}>
+            style={{height: 56}}>
             <b>Filter</b> 
           </Button>
       </Grid>
@@ -47,10 +48,10 @@ function FilterProducts(props) {
   }
 
   function loadListOfProducts(filter){
-    const price_from = document.getElementById('price_from').value
-    const price_to = document.getElementById('price_to').value
-    const category = document.getElementsByClassName('checked_category')[0].id
-    new ProductsApi().getList('', 1, filter, price_from, price_to, category).then(
+    const p = searchParams();
+    p.filter = filter;
+
+    new ProductsApi().getListByParams(p).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },

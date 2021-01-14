@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { updateProducts,  updatePages } from "../redux/actions";
 import Pagination from '@material-ui/lab/Pagination';
 import FilterProducts from './filter';
+import searchParams from '../helpers/searchParams';
 
 class Home extends React.Component {    
     constructor(props) {
@@ -19,12 +20,15 @@ class Home extends React.Component {
       }
     }
     componentDidMount() {
-      this.loadListOfProducts('', 1, '', '', '', '')
+      const p = {
+        search: '', page: 1, filter: '', price_from: '', price_to: '', category: ''
+      }
+      this.loadListOfProducts(p)
       this.loadListOfCategories()
     }
 
-    loadListOfProducts(search, page, filter, price_from, price_to, category){
-      new ProductsApi().getList(search, page, filter, price_from, price_to, category).then(
+    loadListOfProducts(p){
+      new ProductsApi().getListByParams(p).then(
         (result) => {
           this.dispatchUpdateState(result.products, result.pages)
           this.setState({
@@ -62,13 +66,12 @@ class Home extends React.Component {
             <Grid item xs={1} sm={5}></Grid>
             <Grid item xs={11} sm={4} className='page_grid'>            
               <Pagination count={this.props.pages} variant="outlined" shape="rounded" id='paginator'
-                onChange={(e, page)=>
-                {this.loadListOfProducts(document.getElementById('search_complete').value,
-                  page, 
-                  document.getElementById('products_select').innerHTML,
-                  document.getElementById('price_from').value,
-                  document.getElementById('price_to').value,
-                  document.getElementsByClassName('checked_category')[0].id)}}
+                onChange={(e, page)=>{
+                  const p = searchParams();
+                  p.page = page;
+                  this.loadListOfProducts(p) 
+                }
+              }
               /> 
             </Grid>
           </Grid>

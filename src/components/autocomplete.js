@@ -4,6 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { connect } from "react-redux";
 import { updateProducts,  updatePages } from "../redux/actions";
 import ProductsApi from '../services/productsApi';
+import searchParams from '../helpers/searchParams';
 
 function SearchComp(props) {
   return (
@@ -24,7 +25,10 @@ function SearchComp(props) {
   }
 
   function loadListOfProducts(v){
-    new ProductsApi().getList(v,1).then(
+    const p = searchParams();
+    p.search = v;
+
+    new ProductsApi().getListByParams(p).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },

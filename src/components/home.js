@@ -10,7 +10,8 @@ import Pagination from '@material-ui/lab/Pagination';
 import FilterProducts from './filter';
 import searchParams from '../helpers/searchParams';
 
-class Home extends React.Component {    
+
+class HomePage extends React.Component {    
     constructor(props) {
       super(props);
       this.state = {
@@ -95,4 +96,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   { updateProducts, updatePages }
-)(Home);
+)(HomePage);

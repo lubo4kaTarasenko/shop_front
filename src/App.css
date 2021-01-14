@@ -50,6 +50,11 @@
    .categories_grid button{
     font-size: 15px;
   }
+  #main .show_product_paper{
+    margin: 30px 0;
+    border-radius: 0;
+    height: 400px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -89,4 +94,8 @@
 }
 .checked_category{
   background-color:  #0a008b30;
+}
+
+.show_product_paper .show{
+  padding: 15px;
 }

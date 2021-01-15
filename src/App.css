@@ -50,8 +50,7 @@
    .categories_grid button{
     font-size: 15px;
   }
-  #main .show_product_paper{
-    margin: 30px 0;
+  #main .show_product_paper{   
     border-radius: 0;
     height: 400px;
   }
@@ -77,6 +76,9 @@
   .nav_cont button{
     font-size: x-small;
   }
+  .footer_t{
+    width: 100%;
+  }
   
 }
 #home_cont{
@@ -98,4 +100,31 @@
 
 .show_product_paper .show{
   padding: 15px;
+}
+#main .filter{
+  margin-top: 200px
+}
+#main .footer_i{
+  float:left
+}
+.footer_t{
+  margin-top: 3px;
+  padding-left: 5px;
+  float: left;
+}
+#main .footer{
+  margin-top: 40px;
+}
+#main .footer_c{
+  padding-bottom: 20px;
+}
+#paginator{
+  margin-top: 20px;
+}
+#main .stepper{
+  margin-bottom: 20px;
+}
+
+#main .image_st{
+  margin-top: 30px;
 }

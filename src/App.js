@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import Header from './components/header';
+import Footer from './components/footer';
 import SignUp from './components/signUp';
 import LogIn from './components/logIn';
 import Profile from './components/profile';
@@ -15,9 +16,9 @@ import ShowProduct from './components/showProduct';
 function App() {
 
   return (
-    <div id='main'>     
+    <div id='main'>      
       <Router>
-        <Header/>     
+        <Header/>   
         <Switch>
           <Route path="/sign_up" component={SignUp}/>           
           <Route path="/log_in" component={LogIn} />           
@@ -25,8 +26,9 @@ function App() {
           <Route path="/product/:url_name" component={ShowProduct} />   
           <Route path="/home" component={HomePage}/>
           <Route path="" component={HomePage}/>                          
-        </Switch>      
-    </Router>
+        </Switch>              
+      </Router>
+    <Footer/>   
 
   </div>
   );

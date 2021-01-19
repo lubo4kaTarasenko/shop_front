@@ -2,8 +2,9 @@ import {AppBar,Toolbar, Button, TextField, Grid, IconButton} from '@material-ui/
 import React from 'react';
 import { Link } from "react-router-dom";
 //import cookie from 'react-cookies'
-import {Home, AccountBox,ShoppingCart, Search } from '@material-ui/icons';
+import {Home, AccountBox, Search } from '@material-ui/icons';
 import SearchComp from './autocomplete';
+import Cart from './cart';
 
 export default class Header extends React.Component {
  render(){
@@ -33,12 +34,12 @@ export default class Header extends React.Component {
   )}
   else{
     return(
-          <div className='header'>     
+          <div className='header'>   
+            <Cart/> 
+            &nbsp;&nbsp; 
             <IconButton><Link to="/profile"><AccountBox/></Link></IconButton>
             &nbsp;&nbsp;
             <IconButton><Link to="/home"><Home/></Link></IconButton>
-            &nbsp;&nbsp;
-            <IconButton><Link to="/#">< ShoppingCart/></Link></IconButton>
           </div>
   )}
 } 

@@ -6,8 +6,6 @@ import {
 } from "react-router-dom";
 import Header from './components/header';
 import Footer from './components/footer';
-import SignUp from './components/signUp';
-import LogIn from './components/logIn';
 import Profile from './components/profile';
 import HomePage from './components/home';
 import ShowProduct from './components/showProduct';
@@ -19,9 +17,7 @@ function App() {
     <div id='main'>      
       <Router>
         <Header/>   
-        <Switch>
-          <Route path="/sign_up" component={SignUp}/>           
-          <Route path="/log_in" component={LogIn} />           
+        <Switch>          
           <Route path="/profile" component={Profile}/>
           <Route path="/product/:url_name" component={ShowProduct} />   
           <Route path="/home" component={HomePage}/>

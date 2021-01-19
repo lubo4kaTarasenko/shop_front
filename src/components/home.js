@@ -46,6 +46,7 @@ class HomePage extends React.Component {
             isLoaded: true,
             categories: result.categories
           });
+          console.log (this.state.categories)
         },
       )
     }

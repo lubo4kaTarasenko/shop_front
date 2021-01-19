@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { updateProducts,  updatePages } from "../redux/actions";
 import ProductsApi from '../services/productsApi';
 import searchParams from '../helpers/searchParams';
+import CategoriesPopover from './categoriesPopover';
 
 function CategoriesList(props) {
   return(
@@ -16,12 +17,14 @@ function CategoriesList(props) {
           </IconButton>
         </div>
       { props.categories.map(category =>                
-        <div key={category.id}  className="category_container" id={`${category.id}`} >               
-          <IconButton color='primary' className='category_btn'
+        <div key={category.id}  className="category_container" id={`${category.id}`} > 
+          <CategoriesPopover category={category}/>   
+         <IconButton color='primary' className='category_btn'
             onClick={() => {categoryChoose(category.id)}} >
             <Assignment className='category_icon' fontSize='large'/>
-            {category.name}
-          </IconButton>
+              {category.name}            
+          </IconButton> 
+              
         </div>
       )}
     </div>

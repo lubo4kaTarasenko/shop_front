@@ -61,12 +61,17 @@ function CategoriesPopover(props) {
     </div>
   );
   function subcategoryChoose(sc){  
-    let elems = document.getElementsByClassName('checked_subcategory');
-    [].forEach.call(elems, function(el) {
+    let elemsCategory = document.getElementsByClassName('checked_category');
+    [].forEach.call(elemsCategory, function(el) {
+      el.classList.remove("checked_category");
+    });
+    let elemsSubcategory = document.getElementsByClassName('checked_subcategory');
+    [].forEach.call(elemsSubcategory, function(el) {
       el.classList.remove("subchecked_category");
     });
-    document.getElementById(`${sc}`).classList.add('checked_subcategory');
-
+    const checked_subcategory = document.getElementById(`${sc}`)
+    checked_subcategory.classList.add('checked_subcategory');
+    //checked_category.parentNode.parentNode.classList.add('checked_category')
     const p = searchParams();
     p.subcategory = sc;
 

@@ -20,7 +20,7 @@ function ProductList(props) {
               <b>{product.name}</b>
             </div>
             <div className='product_attr' >
-              <i>{product.category}</i>
+               <i>{product.category}/{product.subcategory}</i>
             </div >
             <div className='product_attr' >
               <img src="./ava.jpg" width='100px' alt=''/>

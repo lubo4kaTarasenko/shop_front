@@ -6,6 +6,7 @@ export default function searchParams() {
     price_from: getPriceFrom(), 
     price_to: getPriceTo(),
     category: getCategory(), 
+    subcategory: getSubcategory()
   }
 }
 
@@ -28,6 +29,13 @@ function getPriceFrom() {
 function getCategory() {
   try {
     return (document.getElementsByClassName('checked_category') )[0].id
+  }catch(e) {
+    return '';
+  }
+}
+function getSubcategory() {
+  try {
+    return (document.getElementsByClassName('checked_subcategory') )[0].id
   }catch(e) {
     return '';
   }

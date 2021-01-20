@@ -22,7 +22,7 @@ class HomePage extends React.Component {
     }
     componentDidMount() {
       const p = {
-        search: '', page: 1, filter: '', price_from: '', price_to: '', category: ''
+        search: '', page: 1, filter: '', price_from: '', price_to: '', category: '', subcategory:''
       }
       this.loadListOfProducts(p)
       this.loadListOfCategories()
@@ -56,10 +56,10 @@ class HomePage extends React.Component {
         <div id='home_cont'>
           <FilterProducts/>
            <Grid container >        
-              <Grid item xs={4} sm={2} className='categories_grid'>
+              <Grid item xs={6} sm={2} className='categories_grid'>
                 <CategoriesList categories={this.state.categories}/>
               </Grid>
-              <Grid item xs={8} sm={10}>
+              <Grid item xs={6} sm={10}>
                 {this.props.products.length !== 0 ? <ProductsList/> : <div>No products found</div>}
               </Grid>         
           </Grid>

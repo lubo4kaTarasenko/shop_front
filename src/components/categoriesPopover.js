@@ -4,13 +4,18 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {ArrowRight } from '@material-ui/icons';
+import { connect } from "react-redux";
+import { updateProducts,  updatePages } from "../redux/actions";
+import ProductsApi from '../services/productsApi';
+import searchParams from '../helpers/searchParams';
+
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
 }));
 
-export default function CategoriesPopover(props) {
+function CategoriesPopover(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -46,8 +51,8 @@ export default function CategoriesPopover(props) {
       >
         <Typography className={classes.typography}>
           {props.category.subcategories.map(sc =>
-              <div key={sc.name} style={{color: 'darkblue', cursor: 'pointer'}}>
-                {sc}
+              <div key={sc} id={sc} style={{color: 'darkblue', cursor: 'pointer'}}>
+                <span onClick={() => {subcategoryChoose(sc)}}>{sc}</span>
                 <hr/>
               </div>           
             )}
@@ -55,4 +60,35 @@ export default function CategoriesPopover(props) {
       </Popover>
     </div>
   );
+  function subcategoryChoose(sc){  
+    let elems = document.getElementsByClassName('checked_subcategory');
+    [].forEach.call(elems, function(el) {
+      el.classList.remove("subchecked_category");
+    });
+    document.getElementById(`${sc}`).classList.add('checked_subcategory');
+
+    const p = searchParams();
+    p.subcategory = sc;
+
+    new ProductsApi().getListByParams(p).then(
+      (result) => {
+        dispatchUpdateState(result.products, result.pages)
+      },
+    )    
+  }
+  function dispatchUpdateState(products, pages){
+    props.updateProducts(products)
+    props.updatePages(pages)
+  }
 }
+const mapStateToProps = (state) => {
+  return {
+    pages: state.products.pages,
+    products: state.products.products    
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { updateProducts, updatePages }
+)(CategoriesPopover);

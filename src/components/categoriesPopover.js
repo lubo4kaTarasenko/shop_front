@@ -4,10 +4,9 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {ArrowRight } from '@material-ui/icons';
-import { connect } from "react-redux";
-import { updateProducts,  updatePages } from "../redux/actions";
+import { useAtom } from 'jotai'
+import {productsAtom, pagesAtom, categoriesAtom, paramsAtom } from '../atoms/shopAtoms'
 import ProductsApi from '../services/productsApi';
-import searchParams from '../helpers/searchParams';
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -15,7 +14,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CategoriesPopover(props) {
+export default function CategoriesPopover(props) {
+  const [products, setProducts] = useAtom(productsAtom)
+  const [pages, setPages] = useAtom(pagesAtom)
+  const [categories, setCategories] = useAtom(categoriesAtom)
+  const [params, setParams] = useAtom(paramsAtom)
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -72,28 +76,17 @@ function CategoriesPopover(props) {
     const checked_subcategory = document.getElementById(`${sc}`)
     checked_subcategory.classList.add('checked_subcategory');
     //checked_category.parentNode.parentNode.classList.add('checked_category')
-    const p = searchParams();
-    p.subcategory = sc;
+    params.subcategory = sc;
+    setParams(params)
 
-    new ProductsApi().getListByParams(p).then(
+    new ProductsApi().getListByParams(params).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },
     )    
   }
   function dispatchUpdateState(products, pages){
-    props.updateProducts(products)
-    props.updatePages(pages)
+    setProducts(products)
+    setPages(pages)
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    pages: state.products.pages,
-    products: state.products.products    
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { updateProducts, updatePages }
-)(CategoriesPopover);

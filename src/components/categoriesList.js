@@ -1,12 +1,16 @@
 import {Assignment } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
-import { connect } from "react-redux";
-import { updateProducts,  updatePages } from "../redux/actions";
+import { useAtom } from 'jotai'
+import {productsAtom, pagesAtom, categoriesAtom, paramsAtom } from '../atoms/shopAtoms'
 import ProductsApi from '../services/productsApi';
-import searchParams from '../helpers/searchParams';
 import CategoriesPopover from './categoriesPopover';
 
-function CategoriesList(props) {
+export default function CategoriesList() {
+  const [products, setProducts] = useAtom(productsAtom)
+  const [pages, setPages] = useAtom(pagesAtom)
+  const [categories, setCategories] = useAtom(categoriesAtom)
+  const [params, setParams] = useAtom(paramsAtom)
+
   return(
     <div id='categories'>
       <div className="category_container, checked_category" id='undefined'>               
@@ -16,7 +20,7 @@ function CategoriesList(props) {
               All categories
           </IconButton>
         </div>
-      { props.categories.map(category =>                
+      { categories.map(category =>                
         <div key={category.id}  className="category_container" id={`${category.id}`} > 
           <CategoriesPopover category={category}/>   
          <IconButton color='primary' className='category_btn'
@@ -36,28 +40,17 @@ function CategoriesList(props) {
       });
       document.getElementById(`${c}`).classList.add('checked_category');
 
-      const p = searchParams();
-      p.category = c;
+      params.category = c;
+      setParams(params)
 
-      new ProductsApi().getListByParams(p).then(
+      new ProductsApi().getListByParams(params).then(
         (result) => {
           dispatchUpdateState(result.products, result.pages)
         },
       )    
     }
     function dispatchUpdateState(products, pages){
-      props.updateProducts(products)
-      props.updatePages(pages)
+      setProducts(products)
+      setPages(pages)
     }
-  }
-  const mapStateToProps = (state) => {
-    return {
-      pages: state.products.pages,
-      products: state.products.products    
-    }
-  }
-  
-  export default connect(
-    mapStateToProps,
-    { updateProducts, updatePages }
-  )(CategoriesList);
+}

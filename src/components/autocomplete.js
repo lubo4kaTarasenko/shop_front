@@ -1,16 +1,18 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { connect } from "react-redux";
-import { updateProducts,  updatePages } from "../redux/actions";
 import ProductsApi from '../services/productsApi';
-import searchParams from '../helpers/searchParams';
+import { useAtom } from 'jotai'
+import {productsAtom, pagesAtom, categoriesAtom, paramsAtom } from '../atoms/shopAtoms'
 
-function SearchComp(props) {
+export default function SearchComp(props) {
+  const [products, setProducts] = useAtom(productsAtom)
+  const [pages, setPages] = useAtom(pagesAtom)
+  const [params, setParams] = useAtom(paramsAtom)
   return (
     <Autocomplete
       id="search_complete"
-      options={props.products}
+      options={products}
       getOptionLabel={(option) => option.name}
       style={{ width: 250 }}
       clearOnBlur={false}
@@ -20,29 +22,17 @@ function SearchComp(props) {
   );
 
   function dispatchUpdateState(products, pages){
-    props.updateProducts(products)
-    props.updatePages(pages)
+    setProducts(products)
+    setPages(pages)
   }
 
-  function loadListOfProducts(v){
-    const p = searchParams();
-    p.search = v;
-
-    new ProductsApi().getListByParams(p).then(
+  function loadListOfProducts(v){    
+    params.search = v;
+    setParams(params)
+    new ProductsApi().getListByParams(params).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    pages: state.products.pages,
-    products: state.products.products    
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { updateProducts, updatePages }
-)(SearchComp);

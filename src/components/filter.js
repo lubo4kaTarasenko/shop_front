@@ -1,11 +1,14 @@
 import React from 'react';
 import { Select, MenuItem, Grid, TextField, Button} from '@material-ui/core';
-import { connect } from "react-redux";
-import { updateProducts,  updatePages } from "../redux/actions";
+import { useAtom } from 'jotai'
+import {productsAtom, pagesAtom, categoriesAtom, paramsAtom } from '../atoms/shopAtoms'
 import ProductsApi from '../services/productsApi';
-import searchParams from '../helpers/searchParams';
 
-function FilterProducts(props) {
+export default function FilterProducts() {
+  const [products, setProducts] = useAtom(productsAtom)
+  const [pages, setPages] = useAtom(pagesAtom)
+  const [categories, setCategories] = useAtom(categoriesAtom)
+  const [params, setParams] = useAtom(paramsAtom)
   return (
     <Grid container>
       <Grid item xs={12} md={4} lg={6}></Grid>
@@ -38,34 +41,26 @@ function FilterProducts(props) {
     </Grid>
   );
   function dispatchUpdateState(products, pages){
-    props.updateProducts(products)
-    props.updatePages(pages)
+    setProducts(products)
+    setPages(pages)
   }
 
   function filter_on_btn(){
     const filter = document.getElementById('products_select').innerHTML
-    loadListOfProducts(filter) 
+    const price_to = document.getElementById('price_to').value
+    const price_from = document.getElementById('price_from').value
+    loadListOfProducts(filter, price_from, price_to) 
   }
 
-  function loadListOfProducts(filter){
-    const p = searchParams();
-    p.filter = filter;
-
-    new ProductsApi().getListByParams(p).then(
+  function loadListOfProducts(filter, price_from, price_to){
+    params.filter = filter;
+    params.price_from = price_from;
+    params.price_to = price_to;
+    setParams(params)
+    new ProductsApi().getListByParams(params).then(
       (result) => {
         dispatchUpdateState(result.products, result.pages)
       },
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    pages: state.products.pages,
-    products: state.products.products    
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  { updateProducts, updatePages }
-)(FilterProducts);

@@ -12,7 +12,7 @@ import ShowProduct from './components/showProduct';
 
 
 function App() {
-
+  console.log('v0.0.6')
   return (
     <div id='main'>      
       <Router>

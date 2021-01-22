@@ -37,7 +37,7 @@ export default function ProductList() {
   )
   function productRedirect(url_name){  
     return(
-      <Redirect to={`/product/${url_name}`}/>
+      <Redirect push to={`/product/${url_name}`}/>
     )
   }
 }

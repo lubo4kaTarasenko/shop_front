@@ -1,0 +1,3 @@
+yarn build
+rm -r ~/projects/shop/public/*
+cp -r build/* ~/projects/shop/public

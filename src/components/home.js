@@ -8,7 +8,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import FilterProducts from './filter';
 import { useAtom } from 'jotai'
 import {productsAtom, pagesAtom, categoriesAtom, paramsAtom } from '../atoms/shopAtoms'
-
+import cookie from 'react-cookies'
 
 
 export default function HomePage() {
@@ -19,18 +19,18 @@ export default function HomePage() {
 
   useEffect(() => {
     console.log(products.length)
-    
-    if(!global.loaded) {
-      loadListOfProducts()
-      loadListOfCategories()
-      global.loaded = 1;
-    }
-  }, [products, pages, categories, params])
+    loadListOfProducts()
+    loadListOfCategories()
+  }, [])
 
   function loadListOfProducts(){
       new ProductsApi().getListByParams(params).then(
         (result) => {
           dispatchUpdateState(result.products, result.pages)
+          if (result.user){
+            cookie.save('token', result.user.token, { path: '/' })
+            cookie.save('email', result.user.email, { path: '/' })
+          }
         },
       )
     }

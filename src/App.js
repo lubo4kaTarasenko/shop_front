@@ -9,6 +9,7 @@ import Footer from './components/footer';
 import Profile from './components/profile';
 import HomePage from './components/home';
 import ShowProduct from './components/showProduct';
+import Order from './components/order';
 
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
     <div id='main'>      
       <Router>
         <Header/>   
-        <Switch>          
+        <Switch>    
+          <Route path="/order" component={Order}/>    
           <Route path="/profile" component={Profile}/>
           <Route path="/product/:url_name" component={ShowProduct} />   
           <Route path="/home" component={HomePage}/>

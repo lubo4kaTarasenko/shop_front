@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import { Link } from "react-router-dom";
 import Box from '@material-ui/core/Box';
 import {Button, IconButton, Paper} from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
@@ -69,7 +69,9 @@ export default function Cart() {
               </div>)}
             <br/>
             <div>Total: { getTotal() }$</div><br/>  
-            <Button color='primary' variant='contained'>Make an order</Button>          
+            <Button color='primary' variant='contained'> 
+             <Link to="/order" style={{color:'white', textDecoration:'none'}}>Make an order</Link>
+            </Button>          
         </React.Fragment>
       )
     }

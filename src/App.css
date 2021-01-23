@@ -139,3 +139,16 @@
   height: 15px;
   background: red;
 }
+.order_info{
+  padding-top: 20px;
+}
+.order_info button{
+  margin-bottom: 20px;
+}
+#main .order_cont{
+  margin: 30px;
+  padding: 10px;
+  text-align: center
+}
+
+

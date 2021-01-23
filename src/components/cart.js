@@ -20,7 +20,7 @@ export default function Cart() {
         <div>
           <IconButton {...bindTrigger(popupState)} style={{color: 'white', float: 'left'}}>
             < ShoppingCart/>
-            { number > 0 ? `(${number})` : '' }
+            { number > 0 ? <span className="cartC">{number}</span> : null }
           </IconButton>
           <Popover
             {...bindPopover(popupState)}

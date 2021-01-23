@@ -21,12 +21,8 @@ export default function ShowProduct(props) {
     )
   }
   return(
-    <div>
-      <Grid container >        
-            <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>
-            <Grid item xs={12} sm={8} md={8} lg={8}><PromotionStepper/></Grid> 
-        </Grid> 
-        <Grid container >     
+    <div>    
+        <Grid container  style={{paddingTop: '20px'}}>     
           <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>     
           <Grid item xs={12} sm={4} md={4} lg={4}>
           <Paper className='show_product_paper'>
@@ -38,8 +34,7 @@ export default function ShowProduct(props) {
               <div className='product_show_name show'><b>name: </b> {product.name}</div>                    
               <div className='product_show_description show'><b>description: </b>{product.description}</div>
               <div className='product_show_country show'><b>country: </b>{product.country}</div> 
-              <h2 className='product_show_price show' style={{color: 'green'}}><b>price: </b>{product.price} $
-              </h2>
+              <div className='product_show_price show' style={{color: 'green'}}><b>price: </b>{product.price} $ </div>
               <IconButton 
                 variant='contained' className='category_btn'
                 style={{color: 'green'}}
@@ -51,6 +46,10 @@ export default function ShowProduct(props) {
             </Paper>                
           </Grid>                       
         </Grid>
+        <Grid container >        
+            <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>
+            <Grid item xs={12} sm={8} md={8} lg={8}><PromotionStepper/></Grid> 
+        </Grid> 
       </div>
   )
 

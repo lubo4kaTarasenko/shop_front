@@ -47,6 +47,7 @@ export default function ShowProduct(props) {
               <ShoppingCart  fontSize='large'/>
                 BUY
             </IconButton>
+            { addedNumber() }
             </Paper>                
           </Grid>                       
         </Grid>
@@ -54,7 +55,7 @@ export default function ShowProduct(props) {
   )
 
   function addToCart(){
-    let currentCart = cart
+    let currentCart = JSON.parse(JSON.stringify(cart))
     if(currentCart[product.id]){
       currentCart[product.id].count++
     }
@@ -67,6 +68,14 @@ export default function ShowProduct(props) {
       }
     }
     cookie.save('cart', currentCart, { path: '/' })
-    setCart(JSON.parse(JSON.stringify(currentCart)))
+    setCart(currentCart)
+  }
+
+  function addedNumber() {
+    if(cart[product.id]){
+      return `Added to cart ${ cart[product.id].count > 1 ? `x${cart[product.id].count}` : '' }`
+    } else {
+      return '';
+    }
   }
 }

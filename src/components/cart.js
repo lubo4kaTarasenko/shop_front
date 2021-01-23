@@ -87,7 +87,7 @@ export default function Cart() {
 
   function updateCart(product, diff){
     console.log(product)
-    let currentCart = cart  
+    let currentCart = JSON.parse(JSON.stringify(cart))
     const newCount = currentCart[product.id].count + diff;
     if(newCount > 0) {
       currentCart[product.id].count = newCount
@@ -97,7 +97,7 @@ export default function Cart() {
     
     console.log(currentCart)  
     cookie.save('cart', currentCart, { path: '/' })
-    setCart(JSON.parse(JSON.stringify(currentCart)))  
+    setCart(currentCart)  
   } 
 
   function getTotal() {

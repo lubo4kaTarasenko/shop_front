@@ -1,9 +1,10 @@
-
 import React from 'react';
 import ProductsApi from '../services/productsApi';
 import {ShoppingCart } from '@material-ui/icons';
 import {Paper, Grid, IconButton} from '@material-ui/core';
 import PromotionStepper from './promotionStepper';
+import Cart from './cart';
+import cookie from 'react-cookies'
 
 export default class ShowProduct extends React.Component {    
   constructor(props) {
@@ -51,7 +52,8 @@ export default class ShowProduct extends React.Component {
                 </h2>
                 <IconButton 
                   variant='contained' className='category_btn'
-                  style={{color: 'green'}}>                     
+                  style={{color: 'green'}}
+                  onClick={()=>{this.addToCart()}}>                     
                 <ShoppingCart  fontSize='large'/>
                   BUY
               </IconButton>
@@ -60,5 +62,31 @@ export default class ShowProduct extends React.Component {
           </Grid>
         </div>
     )}
+
+    addToCart(){
+      let currentCart = this.readCart()
+      if(currentCart[this.state.product.id]){
+        currentCart[this.state.product.id].count++
+      }
+      else{
+        currentCart[this.state.product.id] = { 
+          'price': this.state.product.price, 
+          'count': 1,
+          'name': this.state.product.name
+        }
+      }
+      cookie.save('cart', currentCart, { path: '/' })
+    }
+
+    readCart(){
+      let cart = cookie.load('cart')
+      if(cart){
+        console.log(cart)
+        return cart
+      }
+      else{
+        return {}
+      }
+    }
 
 }

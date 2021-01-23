@@ -54,20 +54,19 @@ export default function ShowProduct(props) {
   )
 
   function addToCart(){
-      let currentCart = cart
-      if(currentCart[product.id]){
-        currentCart[product.id].count++
+    let currentCart = cart
+    if(currentCart[product.id]){
+      currentCart[product.id].count++
+    }
+    else{
+      currentCart[product.id] = { 
+        'price': product.price, 
+        'count': 1,
+        'name': product.name,
+        'id': product.id
       }
-      else{
-        currentCart[product.id] = { 
-          'price': product.price, 
-          'count': 1,
-          'name': product.name,
-          'id': product.id
-        }
-      }
-      cookie.save('cart', currentCart, { path: '/' })
-      setCart(currentCart)
-    }  
-
+    }
+    cookie.save('cart', currentCart, { path: '/' })
+    setCart(currentCart)
+  }  
 }

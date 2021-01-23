@@ -8,20 +8,19 @@ import {ShoppingCart, Add, Remove} from '@material-ui/icons';
 import { useAtom } from 'jotai'
 import {cartAtom} from '../atoms/shopAtoms'
 import cookie from 'react-cookies'
-import  { useState, useCallback } from 'react';
 
 export default function Cart() {
   const [cart, setCart] = useAtom(cartAtom)
   console.log('cart render', cart)
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
+  const number = getCartNumber()  
 
   return (
     <PopupState variant="popover" popupId="cart_popup">
       {(popupState) => (
         <div>
-          <IconButton {...bindTrigger(popupState)}
-            style={{color: 'white', float: 'left'}}>< ShoppingCart/>
+          <IconButton {...bindTrigger(popupState)} style={{color: 'white', float: 'left'}}>
+            < ShoppingCart/>
+            { number > 0 ? `(${number})` : '' }
           </IconButton>
           <Popover
             {...bindPopover(popupState)}
@@ -56,7 +55,7 @@ export default function Cart() {
         <React.Fragment>
             {mapCart.map(product =>
               <div key={product.id}>
-                <img src='/ava.jpg' alt='' width='50'/>
+                <img src='/ava.jpg' alt='' width='50'/><br/><br/>
                 <div>{product.name}</div>
                 <div><b>{product.price} $</b></div>
                 <IconButton style={{color: 'red'}}  onClick={ ()=> { updateCart(product, -1) } } >
@@ -68,8 +67,9 @@ export default function Cart() {
                </IconButton>         
                 <hr/>
               </div>)}
-            <div>Total: { getTotal() }$</div>   
-              <Button color='primary' variant='contained'>Make an order</Button>          
+            <br/>
+            <div>Total: { getTotal() }$</div><br/>  
+            <Button color='primary' variant='contained'>Make an order</Button>          
         </React.Fragment>
       )
     }
@@ -97,8 +97,7 @@ export default function Cart() {
     
     console.log(currentCart)  
     cookie.save('cart', currentCart, { path: '/' })
-    setCart(currentCart)  
-    forceUpdate(); 
+    setCart(JSON.parse(JSON.stringify(currentCart)))  
   } 
 
   function getTotal() {
@@ -107,6 +106,16 @@ export default function Cart() {
 
     for(let item of items) {
       total += (item.price * item.count)
+    }
+    return total;
+  }
+
+  function getCartNumber() {
+    const items = Object.values(cart);
+    let total = 0;
+
+    for(let item of items) {
+      total += (item.count)
     }
     return total;
   }

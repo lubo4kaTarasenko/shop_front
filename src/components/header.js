@@ -33,10 +33,10 @@ export default function Header(){
    </AppBar>
   )
  
- function renderIcons(){      
+ function renderIcons(){    
     return(
           <div className='header'>   
-            <Cart/> 
+            <Cart/>
             &nbsp;&nbsp;          
               {renderIfAuth()}
             &nbsp;&nbsp;
@@ -61,5 +61,4 @@ export default function Header(){
         </IconButton>
       )
   }}  
-   
 }

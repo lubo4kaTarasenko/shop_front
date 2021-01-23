@@ -67,6 +67,6 @@ export default function ShowProduct(props) {
       }
     }
     cookie.save('cart', currentCart, { path: '/' })
-    setCart(currentCart)
-  }  
+    setCart(JSON.parse(JSON.stringify(currentCart)))
+  }
 }

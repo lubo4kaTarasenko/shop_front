@@ -3,7 +3,6 @@ import cookie from 'react-cookies'
 
 const email = cookie.load('email')
 const cart = cookie.load('cart') || {}
-console.log(cart);
 
 export const productsAtom = atom([])
 export const pagesAtom = atom(1)

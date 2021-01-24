@@ -16,7 +16,7 @@ export default function Order() {
   const post_office = useRef(null);
   return(
     <Paper className='order_cont'>
-      <form>
+      <form onSubmit={()=> {makeOrder()}}>
         <h1 className='order_headers'>Checkout</h1>
         <div className='order_info'>
           <TextField label="First name" variant='outlined' inputProps={ { ref: first_name } } required/>
@@ -37,18 +37,18 @@ export default function Order() {
           <TextField label="New Post office number" variant='outlined' inputProps={ { ref: post_office } }required/>
         </div>
         <div className='order_info'>
-          <Button variant='contained' color='primary' type="submit" onClick={()=> {makeOrder()}}>Confirm order</Button>
+          <Button variant='contained' color='primary' type="submit" >Confirm order</Button>
         </div>
       </form>
     </Paper>
   )
   function makeOrder(){
     let mapCart = (Object.values(cart));
-    let productsIds = mapCart.map(product => product.id)
+    let products = mapCart.map(p => { return { product_id: p.id, number: p.count } })
     global.email = email;
 
     const info = {
-      productsIds: productsIds,
+      products: products,
       email: email.current.value,
       phone: phone.current.value,
       first_name: first_name.current.value,
@@ -56,7 +56,7 @@ export default function Order() {
       city: city.current.value,
       post_office: post_office.current.value
     }
-    console.log(info)
+    console.log('info; ', JSON.stringify(info))
     new OrderApi().postProductsIds(info).then(
       (result) => {
         console.log(result)          

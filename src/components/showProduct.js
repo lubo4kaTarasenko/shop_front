@@ -17,16 +17,17 @@ export default function ShowProduct(props) {
     new ProductsApi().getProduct(props.match.params.url_name).then(
       (result) => {
         setProduct(result.product);
+        console.log('show',product.image)
       },
     )
   }
-  return(
+  return(  
     <div>    
         <Grid container  style={{paddingTop: '20px'}}>     
           <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>     
           <Grid item xs={12} sm={4} md={4} lg={4}>
           <Paper className='show_product_paper'>
-            <div className='product_show_img show'><img src='../../ava.jpg' width='200px'/></div>
+            <div className='product_show_img show'><img src={product.image} width='200px'/></div>
             </Paper>
           </Grid>  
           <Grid item xs={12} sm={4} md={8} lg={4}>   

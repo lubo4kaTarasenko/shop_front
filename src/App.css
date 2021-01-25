@@ -54,16 +54,21 @@
     border-radius: 0;
     height: 400px;
   }
+  .product_image{
+    height: 100px;
+    width: 100px;
+  }
+  
 }
 
 @media screen and (max-width: 600px) {
   .product_container{
     float: left;
     margin-top: 5px;
-    width: 200px;
+    width: 180px;
     height:200px;
     text-align: center;
-    font-size: x-small;
+    font-size: xx-small;
   }
   .product_container img{
     width: 75px;
@@ -80,6 +85,11 @@
   .footer_t{
     width: 100%;
   }
+  .product_image{
+    height: 70px;
+    width: 70px
+  }
+  
   
 }
 #home_cont{

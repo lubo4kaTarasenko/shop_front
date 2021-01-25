@@ -3,7 +3,7 @@ import { fullPath } from "./baseUrl";
 export default class ProductsApi{
 
   postProductsIds(info){
-    return fetch(fullPath("/order"),{
+    return fetch(fullPath("/order?message=Success"),{
       "method": "POST",
       headers: {
         'Content-Type': 'application/json',

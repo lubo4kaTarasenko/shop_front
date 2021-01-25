@@ -16,7 +16,7 @@ export default function Order() {
   const post_office = useRef(null);
   return(
     <Paper className='order_cont'>
-      <form onSubmit={()=> {makeOrder()}}>
+      <form onSubmit={(e)=> {makeOrder(e)}}>
         <h1 className='order_headers'>Checkout</h1>
         <div className='order_info'>
           <TextField label="First name" variant='outlined' inputProps={ { ref: first_name } } required/>
@@ -42,7 +42,8 @@ export default function Order() {
       </form>
     </Paper>
   )
-  function makeOrder(){
+  function makeOrder(e){
+    e.preventDefault();
     let mapCart = (Object.values(cart));
     let products = mapCart.map(p => { return { product_id: p.id, number: p.count } })
     global.email = email;
@@ -59,7 +60,8 @@ export default function Order() {
     console.log('info; ', JSON.stringify(info))
     new OrderApi().postProductsIds(info).then(
       (result) => {
-        console.log(result)          
+        console.log(result)  
+        window.location.replace(result.next);        
       },
     )
   }

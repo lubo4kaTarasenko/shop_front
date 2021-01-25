@@ -30,7 +30,7 @@ export default function ProductList() {
                 <i>{product.category}/{product.subcategory}</i>
               </div >
               <div className='product_attr' >
-                <img src={im} width='100px' alt=''/>
+                <img src={im} className='product_image' alt=''/>
               </div >
             <div className='product_attr'>
               <h3>price: {product.price} $</h3>

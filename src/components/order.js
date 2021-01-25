@@ -61,6 +61,7 @@ export default function Order() {
     new OrderApi().postProductsIds(info).then(
       (result) => {
         console.log(result)  
+        cookie.remove('cart', { path: '/' })
         window.location.replace(result.next);        
       },
     )

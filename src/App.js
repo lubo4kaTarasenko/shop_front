@@ -8,7 +8,7 @@ import ShowProduct from './components/showProduct';
 import Order from './components/order';
 
 function App() {
-  console.log('v0.0.7')
+  console.log('v0.0.8')
  
   return (
     <div id='main'>      

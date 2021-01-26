@@ -6,11 +6,13 @@ import { IconButton, Paper } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import { useAtom } from 'jotai'
 import { emailAtom } from '../atoms/shopAtoms'
+import AddNewComment from './addNewComment';
 
 export default function ShowAllComments(props) { 
   const [email, setEmail] = useAtom(emailAtom) 
   return (
     <Paper style={{padding: '10px'}}>
+      <AddNewComment/>
       { props.comments.length > 0 && <h3 style={{textAlign: 'center'}}>Comments</h3> }
       { props.comments.map(c =>                
         <div key={c.id} className='comment_cont'>      

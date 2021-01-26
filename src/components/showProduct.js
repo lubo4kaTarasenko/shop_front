@@ -7,9 +7,11 @@ import cookie from 'react-cookies'
 import { useAtom } from 'jotai'
 import {cartAtom} from '../atoms/shopAtoms'
 import {useEffect, useState} from 'react'
+import ShowAllComments from './showAllComments';
 
 export default function ShowProduct(props) {  
   const [product, setProduct] = useState([])
+  const [comments, setComments] = useState([])
   useEffect(() =>{loadProduct()}, []) 
   const [cart, setCart] = useAtom(cartAtom)
 
@@ -17,7 +19,7 @@ export default function ShowProduct(props) {
     new ProductsApi().getProduct(props.match.params.url_name).then(
       (result) => {
         setProduct(result.product);
-        console.log('show',product.image)
+        setComments(result.comments);
       },
     )
   }
@@ -46,7 +48,11 @@ export default function ShowProduct(props) {
             { addedNumber() }
             </Paper>                
           </Grid>                       
-        </Grid>
+        </Grid>  
+        <Grid container >        
+            <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>
+            <Grid item xs={12} sm={8} md={8} lg={8}><ShowAllComments comments={comments}/></Grid> 
+        </Grid>       
         <Grid container >        
             <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>
             <Grid item xs={12} sm={8} md={8} lg={8}><PromotionStepper/></Grid> 

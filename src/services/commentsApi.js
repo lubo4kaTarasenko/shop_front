@@ -23,19 +23,15 @@ export default class CommentsApi{
       'Content-Type': 'application/json',
        Accept: 'application/json'
     },
-    "body": JSON.stringify({
-      id: comment.id,
-      body: comment.text,
-      rating: comment.rating
+    "body": JSON.stringify(comment)
     })
-   })
    .then(response => response.json())   
    .catch(err => {
      console.log(err);
    });
   }
 
-  delete(id){    
+  deleteComment(id){    
     return fetch(fullPath(`/comments?id=${id}`),{
       "method": "DELETE"})
      .then(response => response.json())

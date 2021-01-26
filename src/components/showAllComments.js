@@ -7,9 +7,12 @@ import { Delete, Edit } from '@material-ui/icons';
 import { useAtom } from 'jotai'
 import { emailAtom } from '../atoms/shopAtoms'
 import AddNewComment from './addNewComment';
+import EditComment from './editComment';
+import CommentsApi from '../services/commentsApi';
 
 export default function ShowAllComments(props) { 
-  const [email, setEmail] = useAtom(emailAtom) 
+  const [email] = useAtom(emailAtom) 
+  const [editable, setEditable] = React.useState(false);
   return (
     <Paper style={{padding: '10px'}}>
       {props.newComment && <AddNewComment product_id={props.product_id} loadProduct={props.loadProduct}/>}
@@ -20,24 +23,34 @@ export default function ShowAllComments(props) {
             <Rating name="read-only" value={c.rating} readOnly />
             <Typography>{c.body}</Typography>
             <Typography><b style={{fontSize: 'small'}}>{c.email}</b>
-              {renderCommentsButtons(c.email)}
+              {renderCommentsButtons(c)}
             </Typography>
           </Box> 
       </div> 
       )}    
     </Paper>
   );
-  function renderCommentsButtons(commentEmail){
-    if(email === commentEmail ){
+  function renderCommentsButtons(comment){
+    if(email === comment.email ){
       return(
         <React.Fragment>
-            <IconButton color='primary'>
+            <IconButton color='primary' onClick={() => setEditable(!editable) }>
               <Edit fontSize='small'/>
             </IconButton>
-            <IconButton color='secondary'>
+            <IconButton color='secondary' onClick={() => deleteComment(comment.id) }>
               <Delete fontSize='small'/>
             </IconButton>
+            { editable && <EditComment comment={comment} loadProduct={props.loadProduct} setEditable={setEditable} /> }
         </React.Fragment>
     )}
+  }
+
+  function deleteComment(id){   
+    new CommentsApi().deleteComment(id).then(
+      (result) => {
+        console.log(result)
+        props.loadProduct()
+      },
+    )
   }
 }

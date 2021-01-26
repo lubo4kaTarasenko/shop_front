@@ -53,7 +53,9 @@ export default function ShowProduct(props) {
         </Grid>  
         <Grid container >        
             <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>
-            <Grid item xs={12} sm={8} md={8} lg={8}><ShowAllComments product_id={product.id} comments={comments} newComment={newComment}/></Grid> 
+            <Grid item xs={12} sm={8} md={8} lg={8}>
+              <ShowAllComments loadProduct={ loadProduct } product_id={product.id} comments={comments} newComment={newComment}/>
+            </Grid> 
         </Grid>       
         <Grid container >        
             <Grid item xs={12} sm={2} md={12} lg={2} ></Grid>

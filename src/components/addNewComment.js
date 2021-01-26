@@ -39,6 +39,7 @@ export default function AddNewComment(props) {
     new CommentsApi().createComment(comment).then(
       (result) => {
         console.log(result)
+        props.loadProduct()
       },
     )
   }

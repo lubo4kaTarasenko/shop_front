@@ -12,7 +12,7 @@ export default function ShowAllComments(props) {
   const [email, setEmail] = useAtom(emailAtom) 
   return (
     <Paper style={{padding: '10px'}}>
-      <AddNewComment/>
+      {props.newComment && <AddNewComment product_id={props.product_id}/>}
       { props.comments.length > 0 && <h3 style={{textAlign: 'center'}}>Comments</h3> }
       { props.comments.map(c =>                
         <div key={c.id} className='comment_cont'>      

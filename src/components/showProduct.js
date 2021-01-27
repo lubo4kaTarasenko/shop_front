@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductsApi from '../services/productsApi';
-import {ShoppingCart } from '@material-ui/icons';
+import {ShoppingCart, Star } from '@material-ui/icons';
 import {Paper, Grid, IconButton} from '@material-ui/core';
 import PromotionStepper from './promotionStepper';
 import cookie from 'react-cookies'
@@ -32,6 +32,7 @@ export default function ShowProduct(props) {
           <Grid item xs={12} sm={4} md={4} lg={4}>
           <Paper className='show_product_paper'>
             <div className='product_show_img show'><img src={product.image} width='200px'/></div>
+            {product.rating && <div style={{marginLeft: '40px'}}><Star style={{color: '#ffb400'}}/><b>{product.rating}</b></div>}
             </Paper>
           </Grid>  
           <Grid item xs={12} sm={4} md={8} lg={4}>   

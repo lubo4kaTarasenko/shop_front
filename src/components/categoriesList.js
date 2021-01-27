@@ -41,6 +41,7 @@ export default function CategoriesList() {
       document.getElementById(`${c}`).classList.add('checked_category');
 
       params.category = c;
+      params.subcategory = ''
       setParams(params)
 
       new ProductsApi().getListByParams(params).then(
